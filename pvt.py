@@ -41,7 +41,7 @@ def run():
                     print("Failed, retrying in 1 minute")
                     time.sleep(60)
                     run()
-                else:								#If the operation is completed sucressfully
+                else:								#If the operation is completed sucessfully
                     listf = open("comments.txt", "a")
                     print(str(comment)+"\n", file=listf)			#Adds the comment to the comment list
                     listf.close()	
