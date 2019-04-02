@@ -34,7 +34,7 @@ def run():
                     pewdsr = "{:,d}".format(pewds)				#Formats the number (example: 1234567890 becomes 1,234,567,890)
                     tgayr = "{:,d}".format(tgay)
                     diffr = "{:,d}".format(diff)
-                    reply = ("[Pewdiepie](https://youtube.com/user/pewdiepie): "+pewdsr+"\n\n"+"[T-Series](https://youtube.com/user/tseries): "+tgayr+"\n\n"+"Difference: "+diffr+"\n\n"+"Leading: "+leading+"\n\n"+"^(Bot developed by) [^(u/ado1928)](https://reddit.com/user/ado1928)^(. If you have any questions, PM me)")			#Leaves the reply
+                    reply = ("[Pewdiepie](https://youtube.com/user/pewdiepie): "+pewdsr+"\n\n"+"[T-Series](https://youtube.com/user/tseries): "+tgayr+"\n\n"+"Difference: "+diffr+"\n\n"+"Leading: "+leading+"\n\n"+"^(You can find discussion about the bot) [^(here)](https://www.reddit.com/user/ado1928/comments/b8jz09/pvt_bot_discussion/)")			#Leaves the reply
                     comment.reply(reply)
                     print("Success")
                 except:								#If the operation fails
