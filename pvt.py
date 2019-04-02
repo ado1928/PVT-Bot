@@ -17,7 +17,7 @@ def run():
             if str(str(comment)+"\n") not in list:										#Checks if the comment is in comments that have already been replied to
                 global num
                 try:																									#Attempts to leave reply
-                    num +=1
+                    num += 1
                     print("Attemting to leave reply to "+str(comment)+"  |  "+str(datetime.datetime.now())+"  |  "+str(num))
                     listf.close()
                     token = "still not gonna tell you"
