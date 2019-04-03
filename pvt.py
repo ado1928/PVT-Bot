@@ -1,51 +1,54 @@
-import praw, time, urllib.request, json, datetime				#Imports packages
-reddit = praw.Reddit(client_id="nope",						#Login information
-                     client_secret="its a secret",
+import praw, time, urllib.request, json, datetime
+reddit = praw.Reddit(client_id="nope",
+                     client_secret="not gonna tell you",
                      username="pvt-bot",
                      password="super_secret_password",
                      user_agent="some text idk")
 
-subreddit = reddit.subreddit("pewdiepiesubmissions+pewdiepie")			#Subreddits and keyphrase
+subreddit = reddit.subreddit("pewdiepiesubmissions+pewdiepie")
 keyphrase = "!pvt"
-
 num = 0
 def run():
-    for comment in subreddit.stream.comments():					#Checks each comment
-         if keyphrase in comment.body.lower():					#Checks if "!pvt" is in the comment body
+    for comment in subreddit.stream.comments():
+         if keyphrase in comment.body.lower():
             listf = open("comments.txt", "r")
             list = listf.readlines()
-            if str(str(comment)+"\n") not in list:				#Checks if the comment is in comments that have already been replied to
+            if str(str(comment)+"\n") not in list:
                 global num
-                try:								#Attempts to leave reply
-                    num += 1
+                try:
+                    num +=1
                     print("Attemting to leave reply to "+str(comment)+"  |  "+str(datetime.datetime.now())+"  |  "+str(num))
                     listf.close()
-                    token = "still not gonna tell you"
-                    raw = urllib.request.urlopen("https://www.googleapis.com/youtube/v3/channels?part=statistics&forUsername=pewdiepie&key="+token).read()	#Gets the current sub count of Pewdiepie
+                    token = "not gonna tell you"
+                    raw = urllib.request.urlopen("https://www.googleapis.com/youtube/v3/channels?part=statistics&forUsername=pewdiepie&key="+token).read()
                     pewds = int(json.loads(raw)["items"][0]["statistics"]["subscriberCount"])
-                    raw = urllib.request.urlopen("https://www.googleapis.com/youtube/v3/channels?part=statistics&forUsername=tseries&key="+token).read()	#Gets the current sub count of T-Gay
+                    raw = urllib.request.urlopen("https://www.googleapis.com/youtube/v3/channels?part=statistics&forUsername=tseries&key="+token).read()
                     tgay = int(json.loads(raw)["items"][0]["statistics"]["subscriberCount"])
-                    diff = abs(pewds - tgay)					#Calculates the difference
-                    ("Difference: "+"{:,d}".format(diff))	
-                    if pewds > tgay:						#Who is leading
+                    raw = urllib.request.urlopen("https://www.googleapis.com/youtube/v3/channels?part=statistics&id=UC-9-kyTW8ZkZNDHQJ6FgpwQ&key="+token).read()
+                    music = int(json.loads(raw)["items"][0]["statistics"]["subscriberCount"])
+                    diff = abs(pewds - tgay)
+                    musicd = abs(pewds - music)
+                    if pewds > tgay:
                         leading = ("Pewdiepie")
                     else:
                         leading = ("T-series")
-                    pewdsr = "{:,d}".format(pewds)				#Formats the number (example: 1234567890 becomes 1,234,567,890)
+                    pewdsr = "{:,d}".format(pewds)
                     tgayr = "{:,d}".format(tgay)
                     diffr = "{:,d}".format(diff)
-                    reply = ("[Pewdiepie](https://youtube.com/user/pewdiepie): "+pewdsr+"\n\n"+"[T-Series](https://youtube.com/user/tseries): "+tgayr+"\n\n"+"Difference: "+diffr+"\n\n"+"Leading: "+leading+"\n\n"+"^(You can find discussion about the bot) [^(here)](https://www.reddit.com/user/ado1928/comments/b8jz09/pvt_bot_discussion/)")			#Leaves the reply
+                    musicr = "{:,d}".format(musicd)
+                    reply = ("[Pewdiepie](https://youtube.com/user/pewdiepie): "+pewdsr+"\n\n"+"[T-Series](https://youtube.com/user/tseries): "+tgayr+"\n\n"+"Difference: "+diffr+"\n\n"+"Leading: "+leading+"\n\n"+"Difference between Youtube Music and Pewdiepie: "+musicr+"\n\n"+"^(You can find discussion about the bot) [^(here)](https://www.reddit.com/user/ado1928/comments/b8jz09/pvt_bot_discussion/)")
                     comment.reply(reply)
                     print("Success")
-                except:								#If the operation fails
-                    print("Failed, retrying in 1 minute")
-                    time.sleep(60)
+                except:
+                    print("Failed, retrying in 5 seconds")
+                    time.sleep(5)
                     run()
-                else:								#If the operation is completed sucessfully
+                else:
                     listf = open("comments.txt", "a")
-                    print(str(comment)+"\n", file=listf)			#Adds the comment to the comment list
-                    listf.close()	
+                    print(str(comment)+"\n", file=listf)
+                    listf.close()
 run()
+
 
 
 
